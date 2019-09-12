@@ -2,6 +2,8 @@
 
 This is yet another Q31.32 fixed point project.
 
+Involved math functions: sin, cos, tan, asin, acos, atan, exp, log, pow, sqrt. Most of them are based on LUT.
+
 # Usage
 
 |File|Description|
