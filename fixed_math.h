@@ -1,5 +1,4 @@
-#ifndef lfixed_math_h
-#define lfixed_math_h
+#pragma once
 
 #define FIXED_FRACTION 32
 
@@ -71,11 +70,6 @@ extern "C"
         return (fixed_point)value << FIXED_FRACTION;
     }
 
-    CONSTEXPR fixed_point fixed_atox(const char* s)
-    {
-        return fixed_natox(s, 0);
-    }
-
     CONSTEXPR fixed_point fixed_natox(const char* s, size_t len)
     {
         fixed_point result = 0;
@@ -115,6 +109,11 @@ extern "C"
         return result;
     }
 
+    CONSTEXPR fixed_point fixed_atox(const char* s)
+    {
+        return fixed_natox(s, 0);
+    }
+
     CONSTEXPR int fixed_xtoi(fixed_point value)
     {
         return value >> FIXED_FRACTION;
@@ -127,6 +126,4 @@ extern "C"
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
