@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 #define FIXED_FRACTION 32
 
 #ifdef FIXED_VALUE_TYPE
@@ -9,9 +11,9 @@ typedef long long fixed_point;
 #endif
 
 #ifdef __cpp_constexpr
-#define CONSTEXPR constexpr
+#define CONSTEXPR static constexpr
 #else
-#define CONSTEXPR inline
+#define CONSTEXPR static inline
 #endif
 
 #define fixed_integer_mask      (fixed_point)0xFFFFFFFF00000000
