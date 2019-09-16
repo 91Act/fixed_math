@@ -16,6 +16,12 @@ typedef long long fixed_point;
 #define CONSTEXPR static inline
 #endif
 
+#ifdef _MSC_VER
+#define DEPRECATED(msg) __declspec(deprecated(msg))
+#else
+#define DEPRECATED(msg) __attribute__((deprecated(msg)))
+#endif
+
 #define fixed_integer_mask      (fixed_point)0xFFFFFFFF00000000
 #define fixed_fractional_mask   (fixed_point)0x00000000FFFFFFFF
 #define fixed_one               (fixed_point)0x0000000100000000
@@ -66,6 +72,14 @@ extern "C"
     fixed_point fixed_atan2(fixed_point value_a, fixed_point value_b);
     fixed_point fixed_rad(fixed_point value);
     fixed_point fixed_deg(fixed_point value);
+
+    DEPRECATED("Float may bring uncertain value on different platforms. Please avoid using this to calculate critical values")
+    CONSTEXPR fixed_point fixed_dtox(float value)
+    {
+        fixed_point ival = (fixed_point)value;
+        float fval = value - ival;
+        return (ival << FIXED_FRACTION) + (fixed_point)(fval * (1ll << FIXED_FRACTION));
+    }
 
     CONSTEXPR fixed_point fixed_itox(int value)
     {

@@ -4,8 +4,19 @@
 class fixed_number
 {
 public:
-    fixed_number(const float&) = delete;
-    fixed_number(const int&) = delete;
+    DEPRECATED("Float may bring uncertain value on different platforms. Please avoid using this to calculate critical values")
+    constexpr explicit fixed_number(const double& _data)
+        : data(fixed_dtox(_data))
+    {}
+
+    DEPRECATED("Float may bring uncertain value on different platforms. Please avoid using this to calculate critical values")
+    constexpr explicit fixed_number(const float& _data)
+        : data(fixed_dtox(_data))
+    {}
+
+    constexpr explicit fixed_number(const int& _data)
+        : data(fixed_itox(_data))
+    {}
 
     constexpr fixed_number()
         : data(0)
@@ -120,11 +131,6 @@ public:
         return fixed_isnan(data);
     }
 
-    float to_float() const
-    {
-        return fixed_xtod(data);
-    }
-
     fixed_number floor() const
     {
         return fixed_floor(data);
@@ -193,6 +199,16 @@ public:
     fixed_number log() const
     {
         return fixed_log(data);
+    }
+
+    constexpr explicit operator float() const
+    {
+        return fixed_xtod(data);
+    }
+
+    constexpr explicit operator int() const
+    {
+        return fixed_xtoi(data);
     }
 
 public:
